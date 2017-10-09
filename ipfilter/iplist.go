@@ -27,7 +27,7 @@ type IPFilter struct {
 func ListConatins(iplist []*net.IPNet, ip net.IP) bool {
 	for _, ipnet := range iplist {
 		if ipnet.Contains(ip) {
-			log.Debug("%s matched %s.", ip.String(), ipnet.String())
+			log.Debugf("%s matched %s.", ip.String(), ipnet.String())
 			return true
 		}
 	}
@@ -57,7 +57,7 @@ func (f IPFilter) Contain(ip net.IP) bool {
 		return true
 	}
 
-	log.Debug("%s not match anything.", ip.String())
+	log.Debugf("%s not match anything.", ip.String())
 	return false
 }
 func ParseLine(line string) (ipnet *net.IPNet, err error) {
@@ -102,14 +102,14 @@ QUIT:
 			}
 		case nil:
 		default:
-			log.Error("%s", err)
+			log.Errorf("%s", err)
 			return nil, err
 		}
 		line = strings.Trim(line, "\r\n ")
 
 		ipnet, err = ParseLine(line)
 		if err != nil {
-			log.Error("%s", err)
+			log.Errorf("%s", err)
 			return nil, err
 		}
 
@@ -127,18 +127,18 @@ QUIT:
 		counter++
 	}
 
-	log.Notice("blacklist loaded %d record(s), %d index1, %d index2 and %d no indexed.",
+	log.Noticef("blacklist loaded %d record(s), %d index1, %d index2 and %d no indexed.",
 		counter, len(filter.idx1), len(filter.idx2), len(filter.rest))
 	return
 }
 
 func ReadIPListFile(filename string) (filter *IPFilter, err error) {
-	log.Info("load iplist from file %s.", filename)
+	log.Infof("load iplist from file %s.", filename)
 
 	var f io.ReadCloser
 	f, err = os.Open(filename)
 	if err != nil {
-		log.Error("%s", err)
+		log.Errorf("%s", err)
 		return
 	}
 	defer f.Close()
@@ -146,7 +146,7 @@ func ReadIPListFile(filename string) (filter *IPFilter, err error) {
 	if strings.HasSuffix(filename, ".gz") {
 		f, err = gzip.NewReader(f)
 		if err != nil {
-			log.Error("%s", err)
+			log.Errorf("%s", err)
 			return
 		}
 	}
@@ -188,20 +188,20 @@ func Getaddrs(lookuper sutils.Lookuper, hostname string) (ips []net.IP) {
 	}
 	ips, err := lookuper.LookupIP(hostname)
 	if err != nil {
-		log.Error("%s", err.Error())
+		log.Errorf("%s", err.Error())
 	}
 	return
 }
 
 func (fd *FilteredDialer) Dial(network, address string) (conn net.Conn, err error) {
-	log.Info("filter dial: %s", address)
+	log.Infof("filter dial: %s", address)
 	if len(fd.fps) == 0 {
 		return fd.dialer.Dial(network, address)
 	}
 
 	hostname, _, err := net.SplitHostPort(address)
 	if err != nil {
-		log.Error("%s", err.Error())
+		log.Errorf("%s", err.Error())
 		return
 	}
 
