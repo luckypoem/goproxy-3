@@ -4,10 +4,10 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/shell909090/goproxy/cryptconn"
-	"github.com/shell909090/goproxy/ipfilter"
-	"github.com/shell909090/goproxy/msocks"
-	"github.com/shell909090/goproxy/sutils"
+	"github.com/luckypoem/goproxy-3/cryptconn"
+	"github.com/luckypoem/goproxy-3/ipfilter"
+	"github.com/luckypoem/goproxy-3/msocks"
+	"github.com/luckypoem/goproxy-3/sutils"
 )
 
 func httpserver(addr string, handler http.Handler) {
