@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/shell909090/goproxy/sutils"
+	"github.com/luckypoem/goproxy-3/sutils"
 )
 
 type SessionFactory struct {
