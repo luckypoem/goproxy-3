@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/shell909090/goproxy/sutils"
+	"github.com/luckypoem/goproxy-3/sutils"
 )
 
 var hopHeaders = []string{
