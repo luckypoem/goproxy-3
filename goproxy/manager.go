@@ -6,8 +6,8 @@ import (
 	"net/http/pprof"
 	"text/template"
 
-	"github.com/shell909090/goproxy/msocks"
-	"github.com/shell909090/goproxy/sutils"
+	"github.com/luckypoem/goproxy-3/msocks"
+	"github.com/luckypoem/goproxy-3/sutils"
 )
 
 const (
