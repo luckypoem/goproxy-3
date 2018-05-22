@@ -17,12 +17,12 @@ clean:
 	debian/rules clean
 
 test:
-	go test github.com/shell909090/goproxy/ipfilter
-	go test github.com/shell909090/goproxy/msocks
+	go test github.com/luckypoem/goproxy-3/ipfilter
+	go test github.com/luckypoem/goproxy-3/msocks
 
 build:
 	mkdir -p bin
-	go build -o bin/goproxy github.com/shell909090/goproxy/goproxy
+	go build -o bin/goproxy github.com/luckypoem/goproxy-3/goproxy
 
 install: build
 	install -d $(DESTDIR)/usr/bin/
